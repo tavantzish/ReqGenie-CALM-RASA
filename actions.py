@@ -26,7 +26,7 @@ class ActionValidateProblemDescription(Action):
 
         # Call GPT-4 (LLM) to validate the problem and goal
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -76,7 +76,7 @@ class ActionAdjustProblemDescription(Action):
         validation_prompt = f"Based on the user's confirmation and the proposed problem description, can you update the existing problem description of the system?\n\nConfirmation: '{confirmation}'\nProposed problem description: '{proposed_description}'\nExisting problem description: '{current_problem_description}'"
 
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -126,7 +126,7 @@ class ActionValidateProjectGoal(Action):
 
         # Call GPT-4 (LLM) to validate the problem and goal
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -177,7 +177,7 @@ class ActionAdjustProjectGoal(Action):
         validation_prompt = f"Based on the user's confirmation and the proposed project goal description, can you update the existing project goal of the system?\n\nConfirmation: '{confirmation}'\nProposed project goal: '{proposed_project_goal}'\nExisting project goal: '{current_project_goal}'"
 
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -228,7 +228,7 @@ class ActionValidatePrimaryStakeholders(Action):
         validation_prompt = f"Evaluate the following primary stakeholders (those that are primarily affected by the project) for the project: {primary_stakeholders}\n\nAre those stakeholders relevant, clear, and well-defined based on the problem desciption and goal?\nGoal: '{project_goal}'\nProblem description: '{project_problem}'\n\nProvide any suggestions to extend the list, if necessary."
 
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -279,7 +279,7 @@ class ActionAdjustPrimaryStakeholders(Action):
         validation_prompt = f"Based on the user's confirmation and the proposed list of primary stakeholders, can you update the existing primary stakeholders of the system?\n\nConfirmation: '{confirmation}'\nProposed primary stakeholders: '{proposed_primary_stakeholders}'\nExisting primary stakeholders: '{current_primary_stakeholders}'"
 
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -331,7 +331,7 @@ class ActionValidateSecondaryStakeholders(Action):
         validation_prompt = f"Evaluate the following secondary stakeholders (those that are indirectly affected by the project) for the project:\n{secondary_stakeholders}\nAre those secondary stakeholders relevant, clear, and well-defined based on the problem desciption and goal?\nGoal: '{project_goal}'\nProblem description: '{project_problem}'\n\nSuggest improvements if needed."
 
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -381,7 +381,7 @@ class ActionAdjustSecondaryStakeholders(Action):
         validation_prompt = f"Based on the user's confirmation and the proposed list of secondary stakeholders, can you update the existing secondary stakeholders of the system?\n\nConfirmation: '{confirmation}'\nProposed secondary stakeholders: '{proposed_secondary_stakeholders}'\nExisting secondary stakeholders: '{current_secondary_stakeholders}'"
 
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -430,7 +430,7 @@ class ActionElicitFunctionalRequirements(Action):
         validation_prompt = f"Based on the following problem description, project goal and existing functionality, do you have any suggestions to extend the Functional Requirements of the system?\n\nProblem: '{project_problem}'\nGoal: '{project_goal}'\nExisting Functionality: '{current_functional_requirements}'"       
 
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -481,7 +481,7 @@ class ActionAddProposedFunctionalRequirements(Action):
         validation_prompt = f"Based on the user's confirmation and the proposed functionality, can you update the existing functionality of the system? Please provide the functionality as a list of Functional Requirements, e.g. 'The system shall...'\n\nConfirmation: '{confirmation}'\nProposed Functionality: '{proposed_functionality}'\nExisting Functionality: '{current_functional_requirements}'"       
 
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -524,7 +524,7 @@ class ActionValidateFunctionalRequirements(Action):
         # Use the LLM to validate the functional requirement
         validation_prompt = f"Evaluate the following functional requirements: '{functional_requirements}'. Are those functional requirements clear, specific, and actionable?"
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -588,7 +588,7 @@ class ActionElicitNonFunctionalRequirements(Action):
         validation_prompt = f"Based on the following problem description, project goal, existing functionality, and non-functional requirements, do you have any suggestions to extend the quality atrributes of the system?\n\nProblem: '{project_problem}'\nGoal: '{project_goal}'\nExisting Functionality: '{current_functional_requirements}'\nExisting Quality Attributes:'{current_non_functional_requirements}'"       
 
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -642,7 +642,7 @@ class ActionAddProposedNonFunctionalRequirements(Action):
         validation_prompt = f"Based on the following user's confirmation and the proposed quality attributes, can you update the existing non-functional requirements of the system? Please provide the output as a list of non-Functional Requirements, e.g. 'The system shall...'.\n\nConfirmation: '{confirmation}'\nProposed Quality Attributes: '{proposed_non_functional_requirements}'\nExisting non-Functional Requirements: '{current_non_functional_requirements}'"       
 
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -696,7 +696,7 @@ class ActionValidateNonFunctionalRequirements(Action):
         validation_prompt = f"Evaluate the following non-functional requirements: '{non_functional_requirements}', based on those functional requirements: '{functional_requirements}'. Are those non-functional requirements clear, specific, relevant, and actionable? Suggest improvements if needed."
 
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
@@ -758,7 +758,7 @@ class ActionSummarizeInterview(Action):
         validation_prompt = f"Summarize the following information:\n\n Problem Description: '{problem_description}'\n Project Goal: '{project_goal}'\n Primary Stakeholders: '{primary_stakeholders}'\n Secondary Stakeholders: '{secondary_stakeholders}'\n Functional Requirements: '{functional_requirements}'\n Non-Functional Requirements: '{non_functional_requirements}'"
 
         try:
-            openai.api_key = "REMOVED_SECRET"
+            openai.api_key = ""
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
