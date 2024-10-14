@@ -1,0 +1,124 @@
+flows:
+  say_hello:
+    description: "Greet the user"
+    steps:
+      - action: "utter_greet"
+      - link: "identify_problem"
+
+  identify_problem:
+    description: "Help the user articulate the problem the project aims to solve."
+    always_include_in_prompt: true
+    steps:
+      - collect: problem
+        description: "the cause that the proposed software is needed"
+        reset_after_flow_ends: false
+      - action: action_validate_problem_description
+      - collect: problem_confirmation
+        description: "Confirm whether the user wants to adjust the information based on the provided feedback"
+      - action: action_adjust_problem_description
+        next: 
+          - if: slots.problem is not None
+            then: 
+              - link: identify_project_goal # Proceed to the next flow
+          - else: 
+            - link: identify_problem # Restart the same flow
+  
+  identify_project_goal:
+    description: "Help the user articulate the goal that the project aims to achieve."
+    always_include_in_prompt: true
+    steps: 
+      - collect: goal  
+        description: "the goal that the proposed software aims to achieve"
+        reset_after_flow_ends: false
+      - action: action_validate_project_goal
+      - collect: goal_confirmation
+        description: "Confirm whether the user wants to adjust the goal of the project based on the provided feedback"
+      - action: action_adjust_project_goal
+        next: 
+        - if: slots.goal is not None
+          then: 
+            -  link: identify_primary_stakeholders  # Proceed to the next flow
+        - else: 
+          - link: identify_project_goal  # Restart the same flow
+
+  identify_primary_stakeholders:
+    description: "identify the primary stakeholders of the proposed system"
+    always_include_in_prompt: true
+    steps:
+      - collect: primary_stakeholders
+        description: "the primary stakeholders of the system, i.e. those that are directly impacted by the project"
+        reset_after_flow_ends: false
+      - action: action_validate_primary_stakeholders
+      - collect: primary_stakeholders_confirmation
+        description: "Confirm whether the user wants to adjust the information based on the provided feedback"
+      - action: action_adjust_primary_stakeholders 
+        next:      
+        - if: slots.primary_stakeholders is not None
+          then: 
+            -  link: identify_secondary_stakeholders  # Proceed to the next flow
+        - else: 
+          - link: identify_primary_stakeholders  # Restart the same flow
+
+  identify_secondary_stakeholders:
+    description: "identify the secondary stakeholders of the proposed system"
+    always_include_in_prompt: true
+    steps:
+      - collect: secondary_stakeholders
+        description: "the secondary stakeholders of the system, i.e. those that are affected indirectly by the project"
+        reset_after_flow_ends: false
+      - action: action_validate_secondary_stakeholders
+      - collect: secondary_stakeholders_confirmation
+        description: "Confirm whether the user wants to adjust the information based on the provided feedback"
+      - action: action_adjust_secondary_stakeholders
+        next: 
+          - if: slots.secondary_stakeholders is not None
+            then:
+              -  link: elicit_functional_requirements  # Proceed to the next flow
+          - else: 
+            - link: identify_secondary_stakeholders  # Restart the same flow
+
+  elicit_functional_requirements:
+    description: "gather functional requirements for the proposed system and propose additional ones"
+    always_include_in_prompt: true
+    steps:
+      - collect: functional_requirements
+        description: "what functionalities should the system have"
+        reset_after_flow_ends: false
+      - action: action_elicit_functional_requirements
+      - collect: functional_requirements_confirmation
+        description: "Do you want to include any of these suggested functionalities?"
+      - action: action_add_proposed_functional_requirements
+      - action: action_validate_functional_requirements
+        next: 
+          - if: slots.functional_requirements is not None
+            then: 
+              - link: elicit_non_functional_requirements # Proceed to the next flow
+          - else: 
+            - link: elicit_functional_requirements # Restart the same flow
+    
+  elicit_non_functional_requirements:
+    description: "gather non-functional requirements and recommend additional ones."
+    always_include_in_prompt: true
+    steps:
+      - collect: non_functional_requirements
+        description: "Can you describe the non-functional requirements? These could include performance, security, usability, etc."
+        reset_after_flow_ends: false
+      - action: action_elicit_non_functional_requirements
+      - collect: non_functional_requirements_confirmation
+        description: "Do you want to include any of these recommended non-functional requirements?"
+      - action: action_add_proposed_non_functional_requirements
+      - action: action_validate_non_functional_requirements
+        next: 
+          - if: slots.non_functional_requirements is not None
+            then: 
+              - link: requirements_summarization # Proceed to the next flow
+          - else: 
+            - link: elicit_non_functional_requirements # Restart the same flow
+  
+  requirements_summarization:
+    description: "summarize interview findings to the user."
+    always_include_in_prompt: true
+    steps:
+      - action: action_summarize_interview
+      - action: utter_thank_you
+        next: END

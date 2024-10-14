@@ -1,0 +1,150 @@
+version: "3.1"
+
+slots:
+  problem:
+    type: text
+    mappings:
+      - type: from_llm
+  proposed_problem_description:
+    type: text
+    mappings:
+      - type: from_llm
+  problem_confirmation:
+    type: any
+    mappings:
+      - type: from_llm
+  goal:
+    type: text
+    mappings:
+      - type: from_llm
+  proposed_project_goal:
+    type: text
+    mappings:
+      - type: from_llm
+  goal_confirmation:
+    type: any
+    mappings:
+      - type: from_llm
+  primary_stakeholders:
+    type: text
+    mappings:
+      - type: from_llm
+  proposed_primary_stakeholders:
+    type: text
+    mappings:
+      - type: from_llm
+  primary_stakeholders_confirmation:
+    type: any
+    mappings:
+      - type: from_llm
+  secondary_stakeholders:
+    type: text
+    mappings:
+      - type: from_llm
+  proposed_secondary_stakeholders:
+    type: text
+    mappings:
+      - type: from_llm
+  secondary_stakeholders_confirmation:
+    type: any
+    mappings:
+      - type: from_llm
+  proposed_functional_requirements:
+    type: text
+    mappings:
+      - type: from_llm
+  functional_requirements:
+    type: text
+    mappings:
+      - type: from_llm
+  functional_requirements_confirmation:
+    type: any
+    mappings:
+      - type: from_llm
+  proposed_non_functional_requirements:
+    type: text
+    mappings:
+      - type: from_llm
+  non_functional_requirements:
+    type: text
+    mappings:
+      - type: from_llm
+  non_functional_requirements_confirmation:
+    type: text
+    mappings:
+      - type: from_llm
+
+responses:
+  utter_greet:
+    - text: "Hello, I'm ReqGenie powered by RASA-PRO! I'm here to help you elicit requirements for your software"
+      metadata:
+        rephrase: True
+  utter_ask_problem:
+    - text: "Could you describe the main challenges or problems in the current situation that your project seeks to improve?"
+      metadata:
+        rephrase: True
+  utter_ask_problem_confirmation:
+    - text: "Would you like to adjust the problem description based on the feedback?"
+      metadata:
+        rephrase: True
+  utter_ask_goal:
+    - text: "What are the goals that you want the proposed software to achieve?"
+      metadata:
+        rephrase: True
+  utter_ask_goal_confirmation:
+    - text: "Would you like to adjust the goal description of the project based on the feedback?"
+      metadata:
+        rephrase: True
+  utter_ask_primary_stakeholders:
+    - text: "Could you tell me more about any stakeholder or group of stakeholders who might be directly affected by or involved in the system?"
+      metadata:
+        rephrase: True
+  utter_ask_primary_stakeholders_confirmation:
+    - text: "Would you like to adjust the list of primary stakeholders of the project based on the feedback?"
+      metadata:
+        rephrase: True
+  utter_ask_secondary_stakeholders:
+    - text: "Can you think of any other groups or individuals who might be indirectly impacted by this new system?"
+      metadata:
+        rephrase: True
+  utter_ask_secondary_stakeholders_confirmation:
+    - text: "Would you like to adjust the secondary stakeholders of the project based on the feedback?"
+      metadata:
+        rephrase: True
+  utter_ask_functional_requirements:
+    - text: "Could you describe some specific features you'd like the system to have?"
+      metadata:
+        rephrase: True
+  utter_ask_functional_requirements_confirmation:
+    - text: "Do you want to include any of these suggested functionalities? Which of them?"
+      metadata:
+        rephrase: True
+  utter_ask_non_functional_requirements:
+    - text: "Can you describe the non-functional requirements? These could include performance, security, usability, etc."
+      metadata:
+        rephrase: True
+  utter_ask_non_functional_requirements_confirmation:
+    - text: "Do you want to include any of these recommended non-functional requirements? Which of them?"
+      metadata:
+        rephrase: True
+  utter_thank_you:
+    - text: "Thank you for having such an interesting conversation. If you need any help with your project, I will be glad to help you! Hope you will build your meaningful software!"
+      metadata:
+        rephrase: True
+
+actions:
+  - action_validate_problem_description
+  - action_adjust_problem_description
+  - action_validate_project_goal
+  - action_adjust_project_goal
+  - action_validate_primary_stakeholders
+  - action_adjust_primary_stakeholders
+  - action_validate_secondary_stakeholders
+  - action_adjust_secondary_stakeholders
+  - action_elicit_functional_requirements
+  - action_add_proposed_functional_requirements
+  - action_validate_functional_requirements
+  - action_elicit_non_functional_requirements
+  - action_add_proposed_non_functional_requirements
+  - action_validate_non_functional_requirements
+  - action_summarize_interview
