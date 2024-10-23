@@ -4,3 +4,39 @@ flows:
     name: pattern chitchat
     steps:
       - action: utter_free_chitchat_response
+  
+  pattern_completed:
+    description: Flow that asks if the user needs more help after completing their initiated use cases
+    name: pattern completed
+    steps:
+      - action: utter_can_do_something_else
+
+  pattern_continue_interrupted:
+    description: Conversation repair flow for managing when users switch between different flows
+    name: pattern continue interrupted
+    steps:
+      - action: utter_flow_continue_interrupted
+
+  pattern_correction:
+    description: Conversation repair flow for managing user input changes or error corrections
+    name: pattern correction
+    steps:
+      - action: action_correct_flow_slot
+        next:
+          - if: not context.is_reset_only
+            then:
+              - action: utter_corrected_previous_input
+                next: END
+          - else: END
+
+  pattern_human_handoff:
+    description: Conversation repair flow for switching users to a human agent if their request can't be handled
+    name: pattern human handoff
+    steps:
+      - action: utter_human_handoff_not_available
+
+  pattern_skip_question:
+    description: Conversation repair flow for managing user intents to skip questions (steps)
+    name: pattern skip question
+    steps:
+      - action: utter_skip_question_answer
