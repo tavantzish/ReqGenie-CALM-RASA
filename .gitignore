@@ -1,0 +1,3 @@
+.DS_Store
+.rasa/cache/rasa-llm-cache.db
+__pycache__/actions.cpython-310.pyc
